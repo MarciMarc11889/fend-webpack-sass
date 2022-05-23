@@ -7,6 +7,10 @@ const loader = require('sass-loader')
 module.exports = {
     entry: './src/client/index.js',
     mode: 'development',
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     devtool: 'source-map',
     module: {
         rules: [
