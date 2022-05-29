@@ -25,7 +25,7 @@ function handleSubmit(event) {
         status: response.status, 
         body: response.json()
     }))
-    .then(status, body => console.log(status, body))
+    .then((status, body) => console.log(status, body))
     .catch(error => console.log('error', error));
 
     // Define API Request to Open Weather Map 
