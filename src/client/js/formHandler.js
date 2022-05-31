@@ -9,9 +9,10 @@ function handleSubmit(event) {
     Client.checkForName(formText)
 
     console.log("::: Form Submitted :::")
+    
 
     const formdata = new FormData();
-    formdata.append("key", "bd57c24533f8c58c206c97734b056bb6");
+    formdata.append("key", process.env.API_KEY);
     formdata.append("txt", TestTextGerman);
     
     const requestOptions = {
@@ -27,24 +28,6 @@ function handleSubmit(event) {
     })
     .then((body) => console.log(body.language_list[0].name))
     .catch(error => console.log('error', error));
-
-    // Define API Request to Open Weather Map 
-    // const ApiRequest = async (CityUrl) => {
-    //     const res = await fetch(CityUrl)
-    //         try {
-    //             const data = res.json()
-    //             return data
-    //         }
-    //         catch(error) {
-    //             console.log("error", error);
-    //         }
-    //     }
-
-    // ApiRequest(CityUrl)
-    // .then (data => {
-    //     console.log(data);
-    //     document.getElementById('results').innerHTML = 'Current Temperature in '+ data.name + ' is ' + data.main.temp + ' °C'
-    // })
 
 }
 
