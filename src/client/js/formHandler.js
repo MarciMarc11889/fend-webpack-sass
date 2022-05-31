@@ -10,7 +10,7 @@ function handleSubmit(event) {
 
     console.log("::: Form Submitted :::")
     
-
+// Request to API of Meaning Cloud. The API tells the User the Language of the entered Text
     const formdata = new FormData();
     formdata.append("key", process.env.API_KEY);
     formdata.append("txt", TestTextGerman);
