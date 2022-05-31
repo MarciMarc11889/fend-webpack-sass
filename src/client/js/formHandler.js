@@ -21,11 +21,11 @@ function handleSubmit(event) {
     };
     
     const response = fetch("https://api.meaningcloud.com/lang-4.0/identification", requestOptions)
-    .then(response => ({
-        status: response.status, 
-        body: response.json()
-    }))
-    .then((status, body) => console.log(status, body))
+    .then(response => {
+        const body = response.json()
+        return body
+    })
+    .then((body) => console.log(body.language_list[0].name))
     .catch(error => console.log('error', error));
 
     // Define API Request to Open Weather Map 
