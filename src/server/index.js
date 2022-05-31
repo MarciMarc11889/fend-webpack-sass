@@ -11,8 +11,6 @@ var json = {
     'time': 'now'
 }
 
-
-
 const app = express()
 app.use(cors())
 // to use json

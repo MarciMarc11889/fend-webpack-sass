@@ -1,4 +1,7 @@
 const TestTextGerman = "Dies ist ein Testtext um zu sehen, dass die API richtig funktioniert."
+const TestTextFrench = "Je suis trés fatigueé"
+const TestTextEnglish = "I'm afraid of coding"
+
 
 function handleSubmit(event) {
     event.preventDefault()
@@ -12,7 +15,7 @@ function handleSubmit(event) {
     
 // Request to API of Meaning Cloud. The API tells the User the Language of the entered Text
     const formdata = new FormData();
-    formdata.append("key", process.env.API_KEY);
+    formdata.append("key", "bd57c24533f8c58c206c97734b056bb6");
     formdata.append("txt", TestTextGerman);
     
     const requestOptions = {
@@ -26,7 +29,11 @@ function handleSubmit(event) {
         const body = response.json()
         return body
     })
-    .then((body) => console.log(body.language_list[0].name))
+    .then((body) => {
+        console.log(body.language_list[0].name)
+        return body
+    }) 
+    .then((body) => document.getElementById('results').innerHTML = 'The entered Text is '+ body.language_list[0].name)
     .catch(error => console.log('error', error));
 
 }
