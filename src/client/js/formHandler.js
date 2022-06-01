@@ -32,10 +32,13 @@ const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOpti
     })
     .then((body) => {
         console.log(body)
-        
-        return body
+        const polarity=body.score_tag
+        const subjectivity =body.subjectivity
+        const text = body.sentence_list[0].text
+        return {polarity, subjectivity, text}
     }) 
-    .then((body) => document.getElementById('results').innerHTML = 'The entered Text is '+ body)
+    .then(({polarity, subjectivity, text}) => 
+        document.getElementById('results').innerHTML = 'Polarity: '+ polarity + '<br>Subjectivity: '+ subjectivity + '<br>Text: ' + text)
     .catch(error => console.log('error', error));
 
 
