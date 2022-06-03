@@ -32,7 +32,7 @@ function handleSubmit(event) {
     .then (answer => {console.log(answer)
     })
     
-    
+    // document.getElementById('results').innerHTML = 'Polarity: '+ polarity + '<br>Subjectivity: '+ subjectivity + '<br>Text: ' + text)
     
 
     
