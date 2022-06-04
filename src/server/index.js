@@ -34,7 +34,7 @@ app.use(express.static('dist'))
 console.log(JSON.stringify(mockAPIResponse))
 
 
-app.post('/api', async function (req, res) {
+app.post('/api', (req, res) =>{
 
     // Request to API of Meaning Cloud. 
 const formdata = new FormData();
