@@ -35,8 +35,14 @@ console.log(JSON.stringify(mockAPIResponse))
 
 
 
-const getInformation = async (appData) => {
-// Request to API of Meaning Cloud. 
+
+
+
+
+
+app.post('/api', async function (req, res) {
+
+    // Request to API of Meaning Cloud. 
 const formdata = new FormData();
 formdata.append("key", "bd57c24533f8c58c206c97734b056bb6");
 formdata.append("txt", TestTextEnglish);
@@ -61,16 +67,13 @@ const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOpti
         appData ={polarity, subjectivity, text}
         return appData
     })
+    .then(appData => {
+        console.log(appData)
+        return appData
+    })
+    .then(appData =>{res.send(appData)})
     .catch(error => console.log('error', error));
-
-    return appData
-}
-
-app.post('/api', (req, res, appData) => {
-    getInformation()
-    console.log(appData)
-    res.send(appData)
-  })
+})
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
