@@ -34,17 +34,11 @@ app.use(express.static('dist'))
 console.log(JSON.stringify(mockAPIResponse))
 
 
-
-
-
-
-
-
 app.post('/api', async function (req, res) {
 
     // Request to API of Meaning Cloud. 
 const formdata = new FormData();
-formdata.append("key", "bd57c24533f8c58c206c97734b056bb6");
+formdata.append("key", process.env.API_KEY);
 formdata.append("txt", TestTextEnglish);
 formdata.append("lang", "en");  // 2-letter code, like en es fr ...
 
