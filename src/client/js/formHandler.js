@@ -10,7 +10,8 @@ function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
-    let formText = document.getElementById('name').value
+    let formText = {
+        submittedText: document.getElementById('name').value}
 
     Client.checkForName(formText)
 
@@ -21,23 +22,18 @@ function handleSubmit(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        mode: 'cors',
-        credentials: 'same-origin'
-        // body:JSON.stringify(data)
+        body: JSON.stringify(formText)
     })
-    .then((apiRequest) => {
+    .then(apiRequest => {
         const answer = apiRequest.json()
         return answer
     })
-    .then (answer => {console.log(answer)
+    .then (answer => {
+        console.log(answer)
+        return answer
     })
-    
-    // document.getElementById('results').innerHTML = 'Polarity: '+ polarity + '<br>Subjectivity: '+ subjectivity + '<br>Text: ' + text)
-    
-
-    
-
+    .then(answer => {document.getElementById('results').innerHTML = 'Polarity: '+ answer.polarity + '<br>Subjectivity: '+ answer.subjectivity + '<br>Text: ' + answer.text})
+ 
 }
-
 
 export { handleSubmit }

@@ -31,15 +31,17 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('dist'))
 
-console.log(JSON.stringify(mockAPIResponse))
+// console.log(JSON.stringify(mockAPIResponse))
 
 
 app.post('/api', (req, res) =>{
+console.log('Received text: '+req.body.submittedText)
+const textToApi = req.body.submittedText
 
     // Request to API of Meaning Cloud. 
 const formdata = new FormData();
 formdata.append("key", process.env.API_KEY);
-formdata.append("txt", TestTextEnglish);
+formdata.append("txt", textToApi);
 formdata.append("lang", "en");  // 2-letter code, like en es fr ...
 
 const requestOptions = {
