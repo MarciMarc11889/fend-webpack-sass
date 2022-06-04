@@ -13,27 +13,32 @@ function handleSubmit(event) {
     let formText = {
         submittedText: document.getElementById('name').value}
 
-    Client.checkForName(formText)
+    // Client.checkForName(formText)
 
     console.log("::: Form Submitted :::")
 
-    const apiRequest=fetch('http://localhost:8081/api',{
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+    // Check for emtpy form 
+    if(formText.submittedText =="") {
+        alert('Field cannot be empty!')
+    }
+    else {
+        const apiRequest=fetch('http://localhost:8081/api',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
         body: JSON.stringify(formText)
-    })
-    .then(apiRequest => {
-        const answer = apiRequest.json()
-        return answer
-    })
-    .then (answer => {
-        console.log(answer)
-        return answer
-    })
-    .then(answer => {document.getElementById('results').innerHTML = 'Polarity: '+ answer.polarity + '<br>Subjectivity: '+ answer.subjectivity + '<br>Text: ' + answer.text})
+        })
+        .then(apiRequest => {
+            const answer = apiRequest.json()
+            return answer
+        })
+        .then (answer => {
+            console.log(answer)
+            return answer
+        })
+        .then(answer => {document.getElementById('results').innerHTML = 'Polarity: '+ answer.polarity + '<br>Subjectivity: '+ answer.subjectivity + '<br>Text: ' + answer.text})
  
+    }
 }
-
 export { handleSubmit }
