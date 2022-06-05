@@ -22,12 +22,18 @@ function handleSubmit(event) {
         alert('Field cannot be empty!')
     }
     else {
-        const apiRequest=fetch('http://localhost:8081/api',{
+        apiRequest(formText)
+    }
+}
+
+// Define api request function 
+
+function apiRequest (formText) { fetch('http://localhost:8081/api',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-        body: JSON.stringify(formText)
+            body: JSON.stringify(formText)
         })
         .then(apiRequest => {
             const answer = apiRequest.json()
@@ -38,7 +44,6 @@ function handleSubmit(event) {
             return answer
         })
         .then(answer => {document.getElementById('results').innerHTML = 'Polarity: '+ answer.polarity + '<br>Subjectivity: '+ answer.subjectivity + '<br>Text: ' + answer.text})
- 
     }
-}
+
 export { handleSubmit }
