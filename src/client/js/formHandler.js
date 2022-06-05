@@ -1,5 +1,5 @@
-import { get } from "http"
-import { async } from "q"
+// import { get } from "http"
+// import { async } from "q"
 
 const TestTextGerman = "Dies ist ein Testtext um zu sehen, dass die API richtig funktioniert."
 const TestTextFrench = "Je suis trés fatigueé"
@@ -28,7 +28,7 @@ function handleSubmit(event) {
 
 // Define api request function 
 
-function apiRequest (formText) { fetch('http://localhost:8081/api',{
+async function apiRequest (formText) { fetch('http://localhost:8081/api',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,6 +44,9 @@ function apiRequest (formText) { fetch('http://localhost:8081/api',{
             return answer
         })
         .then(answer => {document.getElementById('results').innerHTML = 'Polarity: '+ answer.polarity + '<br>Subjectivity: '+ answer.subjectivity + '<br>Text: ' + answer.text})
+        .catch(error => console.log('error', error));
     }
 
-export { handleSubmit }
+
+// export { handleSubmit }
+module.exports = apiRequest
