@@ -6,8 +6,7 @@ function handleSubmit(event) {
     let formText = {
         submittedText: document.getElementById('name').value
     }
-    // Call checkForName 
-    Client.checkForName(formText)
+  
 
     console.log("::: Form Submitted :::")
 
@@ -16,6 +15,8 @@ function handleSubmit(event) {
         alert('Field cannot be empty!')
     }
     else {
+          // Call checkForName 
+        Client.checkForName(formText)
         apiRequest(formText)
     }
 }
