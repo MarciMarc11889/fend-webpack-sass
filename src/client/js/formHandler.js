@@ -48,5 +48,4 @@ async function apiRequest (formText) { fetch('http://localhost:8081/api',{
     }
 
 
-// export { handleSubmit }
-module.exports = apiRequest
+export { handleSubmit }
