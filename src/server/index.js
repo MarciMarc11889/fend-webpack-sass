@@ -1,3 +1,4 @@
+// Necessary requirements 
 var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
@@ -6,19 +7,12 @@ var cors = require('cors')
 require('dotenv').config()
 const FormData = require('form-data')
 const fetch = require('node-fetch')
-const TestTextEnglish = "I'm afraid of coding"
 
 // To avoid an error with ssl-certificate
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
+// Ensure that "appData" is empty 
 let appData ={}
-
-
-var json = {
-    'title': 'test json response',
-    'message': 'this is a message',
-    'time': 'now'
-}
 
 const app = express()
 app.use(cors())
@@ -29,46 +23,47 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+// Use the distribution folder 
 app.use(express.static('dist'))
 
-// console.log(JSON.stringify(mockAPIResponse))
-
-
+// Incoming request from the Client 
 app.post('/api', (req, res) =>{
-console.log('Received text: '+req.body.submittedText)
-const textToApi = req.body.submittedText
+    console.log('Received text: '+req.body.submittedText)
+    
+    const textToApi = req.body.submittedText
 
     // Request to API of Meaning Cloud. 
-const formdata = new FormData();
-formdata.append("key", process.env.API_KEY);
-formdata.append("txt", textToApi);
-formdata.append("lang", "en");  // 2-letter code, like en es fr ...
+    const formdata = new FormData();
+    formdata.append("key", process.env.API_KEY);
+    formdata.append("txt", textToApi);
+    formdata.append("lang", "en");  // 2-letter code, like en es fr ...
 
-const requestOptions = {
-  method: 'POST',
-  body: formdata,
-  redirect: 'follow'
-};
+    const requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
 
-const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
-    .then(response => {
-        const body = response.json()
-        return body
-    })
-    .then(body => {
-        console.log(body)
-        const polarity=body.score_tag
-        const subjectivity =body.subjectivity
-        const text = body.sentence_list[0].text
-        appData ={polarity, subjectivity, text}
-        return appData
-    })
-    .then(appData => {
-        console.log(appData)
-        return appData
-    })
-    .then(appData =>{res.send(appData)})
-    .catch(error => console.log('error', error));
+    // Request to API of Meaning Cloud. 
+    const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+        .then(response => {
+            const body = response.json()
+            return body
+        })
+        .then(body => {
+            console.log(body)
+            const polarity=body.score_tag
+            const subjectivity =body.subjectivity
+            const text = body.sentence_list[0].text
+            appData ={polarity, subjectivity, text}
+            return appData
+        })
+        .then(appData => {
+            console.log(appData)
+            return appData
+        })
+        .then(appData =>{res.send(appData)})
+        .catch(error => console.log('error', error));
 })
 
 app.get('/', function (req, res) {

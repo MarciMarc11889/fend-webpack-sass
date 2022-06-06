@@ -1,3 +1,4 @@
+// Define the function checkForName 
 function checkForName(inputText) {
     console.log("::: Running checkForName :::", inputText);
     let names = [
@@ -7,9 +8,13 @@ function checkForName(inputText) {
         "Archer",
         "Georgiou"
     ]
-
-    if(names.includes(inputText)) {
+    // Check if the input text is in the names list above 
+    if(names.includes(inputText.submittedText)) {
         alert("Welcome, Captain!")
+    }
+    // Message if the input text is not in the list above 
+    else{
+        alert("Request only for API")
     }
 }
 
